@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Flat(models.Model):
     owner = models.CharField('ФИО владельца', max_length=200)
     owners_phonenumber = models.CharField('Номер владельца', max_length=20)
-    new_building = models.BooleanField('new_building', null=True, )
+    new_building = models.BooleanField('new_building', null=True, blank=True)
     
     created_at = models.DateTimeField(
         'Когда создано объявление',
@@ -44,6 +44,7 @@ class Flat(models.Model):
 
     has_balcony = models.NullBooleanField('Наличие балкона', db_index=True)
     active = models.BooleanField('Активно-ли объявление', db_index=True)
+    liked_by = models.ManyToManyField(User, related_name="liked_posts")
     construction_year = models.IntegerField(
         'Год постройки здания',
         null=True,
@@ -55,6 +56,6 @@ class Flat(models.Model):
 
 
 class Complaint(models.Model):
-    сomplainter = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Кто жаловался')
+    сomplainter = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Кто жаловался', blank=True)
     flat = models.ForeignKey(Flat, on_delete=models.CASCADE, verbose_name='Квартира, на которую пожаловались')
     text = models.TextField('Текст жалобы', blank=True)
