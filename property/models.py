@@ -60,6 +60,8 @@ class Complaint(models.Model):
     сomplainter = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Кто жаловался', blank=True)
     flat = models.ForeignKey(Flat, on_delete=models.CASCADE, verbose_name='Квартира, на которую пожаловались')
     text = models.TextField('Текст жалобы', blank=True)
+    def __str__(self):
+        return f'{self.сomplainter}, {self.flat}'
 
 
 class Owner(models.Model):
@@ -67,3 +69,5 @@ class Owner(models.Model):
     owners_phonenumber = models.CharField('Номер владельца', max_length=20)
     owner_pure_phone = PhoneNumberField('Нормализованный номер владельца', region="RU", blank=True)
     flats = models.ManyToManyField(Flat, related_name="own_flats", verbose_name='Квартиры в собственности')
+    def __str__(self):
+        return f'{self.owner}, {self.owner_pure_phone}, {self.flats}'
