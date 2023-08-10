@@ -7,12 +7,15 @@ def normalize_phone_number(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     for flat in Flat.objects.all():
         parse_phonenumber = phonenumbers.parse(flat.owners_phonenumber, 'RU')
-        pure_phonenumber = phonenumbers.format_number(parse_phonenumber, phonenumbers.PhoneNumberFormat.E164)
+        pure_phonenumber = phonenumbers.format_number(
+            parse_phonenumber,
+            phonenumbers.PhoneNumberFormat.E164,
+            )
         flat.owner_pure_phone = pure_phonenumber
         flat.save()
 
-class Migration(migrations.Migration):
 
+class Migration(migrations.Migration):
     dependencies = [
         ('property', '0008_alter_flat_liked_by'),
     ]

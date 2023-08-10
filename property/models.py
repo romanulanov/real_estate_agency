@@ -8,7 +8,10 @@ class Flat(models.Model):
     owner = models.CharField('ФИО владельца', max_length=200)
     owners_phonenumber = models.CharField('Номер владельца', max_length=20)
     new_building = models.BooleanField('new_building', null=True, blank=True)
-    owner_pure_phone = PhoneNumberField('Нормализованный номер владельца', region="RU", blank=True)
+    owner_pure_phone = PhoneNumberField(
+        'Нормализованный номер владельца',
+        region="RU",
+        blank=True)
     created_at = models.DateTimeField(
         'Когда создано объявление',
         default=timezone.now,
@@ -45,7 +48,10 @@ class Flat(models.Model):
 
     has_balcony = models.BooleanField('Наличие балкона', db_index=True)
     active = models.BooleanField('Активно-ли объявление', db_index=True)
-    liked_by = models.ManyToManyField(User, related_name="liked_posts", null=True, blank=True)
+    liked_by = models.ManyToManyField(User,
+                                      related_name="liked_posts",
+                                      null=True,
+                                      blank=True)
     construction_year = models.IntegerField(
         'Год постройки здания',
         null=True,
@@ -57,9 +63,15 @@ class Flat(models.Model):
 
 
 class Complaint(models.Model):
-    сomplainter = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Кто жаловался', blank=True)
-    flat = models.ForeignKey(Flat, on_delete=models.CASCADE, verbose_name='Квартира, на которую пожаловались')
+    сomplainter = models.OneToOneField(User,
+                                       on_delete=models.CASCADE,
+                                       verbose_name='Кто жаловался',
+                                       blank=True)
+    flat = models.ForeignKey(Flat,
+                             on_delete=models.CASCADE,
+                             verbose_name='Квартира, на которую пожаловались')
     text = models.TextField('Текст жалобы', blank=True)
+
     def __str__(self):
         return f'{self.сomplainter}, {self.flat}'
 
@@ -67,7 +79,15 @@ class Complaint(models.Model):
 class Owner(models.Model):
     owner = models.CharField('ФИО владельца', max_length=200)
     phonenumber = models.CharField('Номер владельца', max_length=20)
-    pure_phone = PhoneNumberField('Нормализованный номер владельца', region="RU", blank=True)
-    flats = models.ManyToManyField(Flat, related_name="own_flats", verbose_name='Квартиры в собственности', db_index=True)
+    pure_phone = PhoneNumberField(
+        'Нормализованный номер владельца',
+        region="RU",
+        blank=True
+        )
+    flats = models.ManyToManyField(Flat,
+                                   related_name="own_flats",
+                                   verbose_name='Квартиры в собственности',
+                                   db_index=True)
+
     def __str__(self):
         return f'{self.owner}, {self.pure_phone}, {self.flats}'
