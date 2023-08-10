@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from .models import Flat, Complaint, Owner
 
 
@@ -12,14 +11,23 @@ class FlatAdmin(admin.ModelAdmin):
     raw_id_fields = ("liked_by",)
 
 
+class FlatInline(admin.TabularInline):
+    model = Flat.own_flats.through
+    raw_id_fields = ("flat",)
+  
+
 class ComplaintAdmin(admin.ModelAdmin):
     raw_id_fields = ("flat", "сomplainter")
+
 
 class OwnerAdmin(admin.ModelAdmin):
     raw_id_fields = ("flats", )
     search_fields = ('owner',)
+    inlines = [
+        FlatInline,
+    ]
+
 
 admin.site.register(Complaint, ComplaintAdmin)
-
 admin.site.register(Flat, FlatAdmin)
 admin.site.register(Owner, OwnerAdmin)
