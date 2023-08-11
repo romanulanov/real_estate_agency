@@ -13,7 +13,7 @@ class FlatAdmin(admin.ModelAdmin):
                     )
     list_editable = ['new_building']
     readonly_fields = ['created_at']
-    raw_id_fields = ("liked_by",)
+    raw_id_fields = ("liked_flats",)
 
 
 class FlatInline(admin.TabularInline):
