@@ -5,8 +5,8 @@ from property.models import Owner
 
 
 def fill_owners_name_and_phone(apps, schema_editor):
-    Flat = apps.get_model('property', 'Flat')
-    for flat in Flat.objects.all():
+    flats = apps.get_model('property', 'Flat')
+    for flat in flats.iterator():
         Owner.objects.get_or_create(owner=flat.owner,
                                     owners_phonenumber=flat.owners_phonenumber,
                                     owner_pure_phone=flat.owner_pure_phone)

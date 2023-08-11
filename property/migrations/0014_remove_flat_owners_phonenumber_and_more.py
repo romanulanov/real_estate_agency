@@ -9,7 +9,8 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('property', '0013_rename_owners_phonenumber_owner_phonenumber_and_more'),
+        ('property',
+         '0013_rename_owners_phonenumber_owner_phonenumber_and_more'),
     ]
 
     operations = [
