@@ -23,6 +23,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='owner',
             name='flats',
-            field=models.ManyToManyField(db_index=True, related_name='own_flats', to='property.flat', verbose_name='Квартиры в собственности'),
+            field=models.ManyToManyField(
+                db_index=True,
+                related_name='owners',
+                to='property.flat',
+                verbose_name='Квартиры в собственности'
+                ),
         ),
     ]
