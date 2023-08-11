@@ -63,10 +63,12 @@ class Flat(models.Model):
 
 class Complaint(models.Model):
     сomplainter = models.OneToOneField(User,
+                                       related_name='complaints',
                                        on_delete=models.CASCADE,
                                        verbose_name='Кто жаловался',
                                        blank=True)
     flat = models.ForeignKey(Flat,
+                             related_name='complaints',
                              on_delete=models.CASCADE,
                              verbose_name='Квартира, на которую пожаловались')
     text = models.TextField('Текст жалобы', blank=True)
