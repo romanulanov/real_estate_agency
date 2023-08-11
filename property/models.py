@@ -90,4 +90,4 @@ class Owner(models.Model):
                                    db_index=True)
 
     def __str__(self):
-        return f'{self.owner}, {self.pure_phone}, {self.flats}'
+        return f'{self.name}, {self.pure_phone}, {self.flats}'
